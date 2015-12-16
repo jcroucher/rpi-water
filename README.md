@@ -23,8 +23,6 @@ This will disable a number of things allowing you to modify settings
 From your browser navigate to http://PI-IP:8080
 
 
-Icons used in this system are from http://ionicons.com. Please see the readme and license in ./public/icons for more details
-
 ## Hardware Needed
 
 - Raspberry Pi
@@ -49,5 +47,8 @@ Optional
 ## License
 
 Copyright (c) 2015 John Croucher www.jcroucher.com
+
 Licensed under the [MIT license](http://opensource.org/licenses/MIT).
+
+Icons used in this system are from http://ionicons.com. Please see the readme and license in ./public/icons for more details
 

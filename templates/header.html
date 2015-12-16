@@ -1,0 +1,119 @@
+<html>
+<head>
+    <title>Water-Pi{{page_title}}</title>
+    <link rel="stylesheet" href="/public/green-theme.css" type="text/css" />
+    <link rel="stylesheet" href="/public/icons/css/ionicons.min.css" type="text/css" />
+
+    <script type="text/javascript" src="/public/water.js"></script>
+</head>
+<body>
+    <header>
+		<nav>
+			<ul>
+                <li>
+                    <a href="/">
+                        <span class="step">
+                            <i class="icon ion-android-locate"></i>
+                        </span>
+                        Zones
+                    </a>
+                </li>
+                <li>
+                    <a href="/programs">
+                        <span class="step">
+                            <i class="icon ion-android-alarm"></i>
+                        </span>
+                        Programs
+                    </a>
+                </li>
+                <li>
+                    <a href="/logs">
+                        <span class="step">
+                            <i class="icon ion-document-text"></i>
+                        </span>
+                        Logs
+                    </a>
+                </li>
+                <li>
+                    <a href="/settings">
+                        <span class="step">
+                            <i class="icon ion-android-settings"></i>
+                        </span>
+                        Settings
+                    </a>
+                </li>
+			</ul>
+		</nav>
+	</header>
+
+    <section>
+
+        <div id="status">
+            <table>
+                <tr>
+                    <td class="center">
+                        <span class="step">
+                            <i class="icon ion-clock"></i>
+                        </span>
+                    </td>
+                    <td>
+                        System Time
+                    </td>
+                    <td class="right">{{current_time}}</td>
+                </tr>
+                <tr>
+                    <td class="center">
+                        <span class="step">
+                            <i class="icon ion-thermometer"></i>
+                        </span>
+                    </td>
+                    <td>
+                        Temperature
+                    </td>
+                    <td class="right">{{current_temperature}}&deg;c - Max {{max_temp}}&deg;c / Min {{min_temp}}&deg;c</td>
+                </tr>
+                <tr>
+                    <td class="center">
+                        <span class="step">
+                            <i class="icon ion-ios7-rainy"></i>
+                        </span>
+                    </td>
+                    <td>
+                        Rainfall
+                    </td>
+                    <td class="right">Forecast {{pop}}mm / Actual {{pre_today}}mm</td>
+                </tr>
+                <tr>
+                    <td class="center">
+                        <span class="step">
+                        <i class="icon ion-android-locate"></i>
+                        </span>
+                    </td>
+                    <td>
+                        Running Zones
+                    </td>
+                    <td class="right"> {{_running_zones}}</td>
+                </tr>
+                <tr>
+                    <td class="center">
+                        <span class="step">
+                            <i class="icon ion-arrow-graph-up-right"></i>
+                        </span>
+                    </td>
+                    <td>
+                        Flow Rate
+                    </td>
+                    <td class="right"> {{_flow_rate}} {{settings.unit|upper}}</td>
+                </tr>
+                <tr>
+                    <td class="center">
+                        <span class="step">
+                            <i class="icon ion-earth"></i>
+                        </span>
+                    </td>
+                    <td>
+                        Soil Moisture
+                    </td>
+                    <td class="right"> {{_soil_moisture}}</td></tr>
+            </table>
+        </div>

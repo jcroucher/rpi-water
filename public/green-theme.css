@@ -1,0 +1,246 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+
+
+
+/*** Style starts ***/
+
+body {
+    background-color: #71BF1C;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 50px;
+    color: #ffffff;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 10pt;
+}
+
+h1 {
+    float: left;
+    font-size: 130%;
+}
+
+h2 {
+    padding-top: 20px;
+    clear: both;
+}
+
+header {
+    background-color: #000000;
+    height: 60px;
+}
+
+section {
+    clear: both;
+    width: 700px;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+nav{
+    list-style:none;
+    margin:0;
+    padding:0;
+    text-align:center;
+    color: #ffffff;
+    line-height: 60px;
+}
+nav li{
+    display:inline;
+}
+nav a{
+    display:inline-block;
+    padding-left:10px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+table {
+    width: 100%;
+}
+
+.datatable th {
+    color: #000000;
+    border-bottom: 2px black double;
+}
+
+.datatable tr {
+    border-bottom: 1px black solid;
+    height: 40px;
+    line-height: 40px;
+}
+
+.datatable tr:nth-child(even) {
+    background-color: #5FA810;
+}
+
+
+footer {
+    clear: both;
+    position:fixed;
+    bottom:0;
+    width: 100%;
+    margin-top: 3em;
+    background-color: black;
+    text-align: center;
+    padding: 2px;
+    font-size: 80%;
+}
+
+footer a {
+    color: #ffffff;
+}
+
+#status {
+    float: right;
+    padding-bottom: 10px;
+}
+
+#status td {
+    padding: 2px;
+}
+
+
+.right {
+    text-align: right;
+}
+
+.center {
+    text-align: center;
+}
+
+.btn {
+    color: #ffffff;
+    padding: 10px 10px 10px 10px;
+    border: none;
+    text-decoration: none;
+    background: none;
+    text-align: center;
+}
+
+.mainbtn {
+    min-width: 150px;
+}
+
+.btn:hover {
+  background: #000000;
+  text-decoration: none;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+dl {
+    padding: 20px;
+    font-size: 70%;
+}
+dt {
+    float: left;
+    clear: left;
+    width: 100px;
+    text-align: right;
+    font-weight: bold;
+    color: green;
+}
+dt:after {
+    content: ":";
+}
+dd {
+    margin: 0 0 0 110px;
+    padding: 0 0 0.5em 0;
+}
+
+img {
+    padding: 10px;
+}
+
+
+
+fieldset {
+    width: 100%;
+    padding: 20px;
+}
+
+form label {
+	float: left;
+	width: 200px;
+	padding: 0;
+	margin:0; /* set top margin same as form input - textarea etc. elements */
+	text-align: left;
+}
+
+fieldset .options {
+    float: left;
+    text-align: left;
+
+}
+
+small {
+    clear: both;
+    display: block;
+    font-size: 70%;
+}
+
+.form-section {
+    display: block;
+    clear: both;
+    padding-top: 10px;
+}
+
+ol {
+    list-style-type: upper-roman;
+    margin: 30px;
+}

@@ -1,0 +1,99 @@
+{% include 'header.html' %}
+
+        <h1>Edit Program:
+            {% if program_id is equalto "0" %}
+                New
+            {% else %}
+                {{zone_id}}
+            {% endif %}
+        </h1>
+        <br />
+        <br /><input style="display: block; float: left;" class="left btn icon ion-ios7-arrow-thin-left" type="button" value="&#xf27f; Back" onclick="window.location='/programs';" />
+
+        <table style="clear: both; text-align: left;">
+            <tr><th style="width: 80px;">Last Run</th><td>{{last_run}}</td></tr>
+            <tr><th style="width: 80px;">Next Run</th><td>{{next_run}}</td></tr>
+            <tr>
+                <th>Running</th>
+                <td>
+                    {%if running is equalto "On" %}
+                            <span class="step">
+                            <i class="icon ion-android-checkmark"></i>
+                            </span>
+                        {% else %}
+                            <span class="step">
+                            <i class="icon ion-android-close"></i>
+                            </span>
+                        {% endif %}
+                </td>
+            </tr>
+            <tr><th>State</th><td>{{active}}</td></tr>
+        </table>
+
+
+        <form action="/editprogram?program={{program_id}}" method="post">
+            <fieldset>
+
+                <div class="form-section">
+                    <label for="zone_id">
+                        Zone
+                    </label>
+                    <div class="options">
+                        <select id="zone_id" name="zone_id">
+                            <option value="0">-- Select Zone --</option>
+                            {% for zone in zones %}
+                                <option value="{{zone.zone_id}}" {% if zone_id is equalto zone.zone_id %} selected="selected" {% endif %}>{{zone.zone_name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label for="start_time">
+                        Start Time
+                    </label>
+                    <div class="options">
+                        <input type="time" name="start_time" id="start_time" value="{{start_time}}" />
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label for="duration">
+                        Duration
+                    </label>
+                    <div class="options">
+                        <input type="number" name="duration" id="duration" value="{{duration}}" />
+                        <small>(minutes)</small>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label for="day_interval">
+                        Day Interval
+                    </label>
+                    <div class="options">
+                        <input type="number" name="day_interval" id="day_interval" value="{{day_interval}}" />
+                        <small>Run every X days</small>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label>
+                        Delete After Run
+                    </label>
+                    <div class="options">
+                        <input type="radio" id="run_once_no" name="run_once" value="0" {% if run_once is equalto 0 %} checked="checked" {% endif %} />No
+                        <input type="radio" id="run_once_yes" name="run_once" value="1" {% if run_once is equalto 1 %} checked="checked" {% endif %} />Yes
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <div class="center">
+                <input class="btn mainbtn" type="button" name="delete" value="Delete" onclick="delete_program({{program_id}});"/>
+                <input class="btn mainbtn" type="submit" name="save" value="Save"/>
+            </div>
+
+        </form>
+
+{% include 'footer.html' %}

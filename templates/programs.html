@@ -1,0 +1,77 @@
+{% include 'header.html' %}
+
+        <h1>
+            <span class="step">
+                <i class="icon ion-android-alarm"></i>
+            </span>
+            Programs
+        </h1>
+
+        <div style="clear: both; float: right;">
+            <input class="btn" type="button" value="Add Program" onclick="window.location='/editprogram?program=0';"/>
+        </div>
+
+        <table class="datatable">
+            <tr>
+                <th>#</th>
+                <th>Zone</th>
+                <th>Start Time</th>
+                <th>Day Interval</th>
+                <th>Duration</th>
+                <th>Last Run</th>
+                <th>Next Run</th>
+                <th>Run Once</th>
+                <th>Running</th>
+                <th>Active</th>
+                <th></th>
+            </tr>
+            {% for program_id, zone_id, start_time, day_interval, duration, running, active, last_run, run_once in rows %}
+                <tr>
+                    <td class="center">{{program_id}}.</td>
+                    <td class="center">{{zone_id}}</td>
+                    <td class="center">{{start_time}}</td>
+                    <td class="center">{{day_interval}}</td>
+                    <td class="center">{{duration}}</td>
+                    <td class="center">{{last_run}}</td>
+                    <td class="center">{{next_run}}</td>
+                    <td class="center">
+                        {%if run_once is equalto 1 %}
+                            <span class="step">
+                            <i class="icon ion-android-checkmark"></i>
+                            </span>
+                        {% else %}
+                            <span class="step">
+                            <i class="icon ion-android-close"></i>
+                            </span>
+                        {% endif %}
+                    </td>
+                    <td class="center">
+                        {%if running is equalto 1 %}
+                            <span class="step">
+                            <i class="icon ion-android-checkmark"></i>
+                            </span>
+                        {% else %}
+                            <span class="step">
+                            <i class="icon ion-android-close"></i>
+                            </span>
+                        {% endif %}
+                    </td>
+                    <td class="center">
+                        {%if active is equalto 1 %}
+                            <span class="step">
+                            <i class="icon ion-android-checkmark"></i>
+                            </span>
+                        {% else %}
+                            <span class="step">
+                            <i class="icon ion-android-close"></i>
+                            </span>
+                        {% endif %}
+                    </td>
+                    <td class="center">
+                        <input class="btn icon ion-edit" type="button" value="&#xf2bf;" onclick="window.location='/editprogram?program={{program_id}}';"/>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+{% include 'footer.html' %}

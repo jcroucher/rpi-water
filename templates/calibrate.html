@@ -1,0 +1,24 @@
+{% include 'header.html' %}
+
+        <h1>
+            <span class="step">
+                <i class="icon ion-wrench"></i>
+            </span>
+            Notice
+        </h1>
+
+        <script>
+            setTimeout(function(){
+                window.location.reload(1);
+            }, 10000);
+        </script>
+
+        <div style="padding-top: 50px; clear: both; text-align: center">
+            {{message}}
+
+            <br /><br /><i style="font-size: 50px;" class="icon ion-ios7-reloading"></i>
+
+        </div>
+
+
+{% include 'footer.html' %}

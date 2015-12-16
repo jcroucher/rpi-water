@@ -1,0 +1,111 @@
+{% include 'header.html' %}
+
+
+        <h1>Edit Zone:
+            {% if zone_id is equalto "0" %}
+                New
+            {% else %}
+                {{zone_id}}
+            {% endif %}
+        </h1>
+        <br />
+        <br /><input style="display: block; float: left;" class="left btn icon ion-ios7-arrow-thin-left" type="button" value="&#xf27f; Back" onclick="window.location='/';" />
+
+        <table style="clear: both; text-align: left;">
+            <tr><th style="width: 80px;">Last Run</th><td>{{last_run}}</td></tr>
+            <tr>
+                <th>Running</th>
+                <td>
+                    {%if running is equalto "On" %}
+                            <span class="step">
+                            <i class="icon ion-android-checkmark"></i>
+                            </span>
+                        {% else %}
+                            <span class="step">
+                            <i class="icon ion-android-close"></i>
+                            </span>
+                        {% endif %}
+                </td>
+            </tr>
+            <tr><th>State</th><td>Disabled</td></tr>
+        </table>
+
+
+        <form action="/editzone?zone={{zone_id}}" method="post">
+            <fieldset>
+
+                <div class="form-section">
+                    <label for="zone_name">Name</label>
+                    <div class="options">
+                        <input type="text" id="zone_name" name="zone_name" value="{{zone_name}}" />
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label>
+                        Type
+                    </label>
+                    <div class="options">
+                        <input type="radio" id="type_water" name="zone_type" value="0" {% if zone_type is equalto 0 %} checked="checked" {% endif %} />Water
+                        <input type="radio" id="type_lights" name="zone_type" value="1" {% if zone_type is equalto 1 %} checked="checked" {% endif %} />Lights
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label for="pin_number">
+                        GPIO Pin - On
+                    </label>
+                    <div class="options">
+                        <select id="pin_number" name="pin_number">
+                            {% for n in range(0,41) %}
+                                <option value="{{n}}" {% if pin_number is equalto n %} selected="selected" {% endif %}>{{n}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label for="pin_number_2">
+                        GPIO Pin - Off
+                    </label>
+                    <div class="options">
+                        <select id="pin_number_2" name="pin_number_2">
+                            {% for n in range(0,41) %}
+                                <option value="{{n}}" {% if pin_number_2 is equalto n %} selected="selected" {% endif %}>{{n}}</option>
+                            {% endfor %}
+                        </select>
+                        <small>This is only needed for relays that require a reversed signal for turning off</small>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label>
+                        Solenoid Type
+                    </label>
+                    <div class="options">
+                        <input type="radio" id="solenoid_type_nonlatching" name="solenoid_latching" value="0" {% if solenoid_latching is equalto 0 %} checked="checked" {% endif %} />Non-Latching
+                        <input type="radio" id="solenoid_type_latching" name="solenoid_latching" value="1" {% if solenoid_latching is equalto 1 %} checked="checked" {% endif %} />Latching
+                        <small>Latching use a pulsing method to turn on/off the valve without requiring constant power.</small>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label for="solenoid_pulse">
+                        Latch Pulse
+                    </label>
+                    <div class="options">
+                        <input type="number" name="solenoid_pulse" id="solenoid_pulse" value="{{solenoid_pulse}}" />
+                        <small>Time delay between on and off signal in milliseconds</small>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <div class="center">
+                <input class="btn mainbtn" type="button" name="delete" value="Delete" onclick="delete_zone({{zone_id}});"/>
+                <input class="btn mainbtn" type="submit" name="save" value="Save"/>
+            </div>
+
+        </form>
+
+{% include 'footer.html' %}
