@@ -1,0 +1,261 @@
+{% include 'header.html' %}
+
+        <h1>
+            <span class="step">
+                <i class="icon ion-android-settings"></i>
+            </span>
+            Settings
+        </h1>
+
+        <div style="clear: both; float: right;">
+            <input class="btn icon ion-refresh" type="button" value="&#xf21c; Restart" onclick="window.location='/restart?mode=r';"/>
+            <input class="btn icon ion-power" type="button" value="&#xf2a9; Shutdown" onclick="window.location='/restart?mode=h';"/>
+        </div>
+
+
+        <form action="/settings" method="post">
+            <fieldset>
+                <legend>General</legend>
+
+                <div class="form-section">
+                    <label>
+                        Unit
+                    </label>
+                    <div class="options">
+                        <input type="radio" name="unit" value="lpm" {% if settings.unit is equalto "lpm" %} checked="checked" {% endif %} /> Litres Per Minute ( LPM )
+                        <br /><input type="radio" name="unit" value="gpm" {% if settings.unit is equalto "gpm" %} checked="checked" {% endif %} /> Gallons Per Minute ( GPM )
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label for="fail_safe">
+                        Fail-safe
+                    </label>
+                    <div class="options">
+                        <input type="number" id="fail_safe" name="fail_safe" value="{{settings.fail_safe}}" />
+                        <small>The number of minutes without any valves being turned off at which the system will kill itself</small>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label for="max_zones">
+                        Maximum zones to run
+                    </label>
+                    <div class="options">
+                        <input type="number" id="max_zones" name="max_zones" value="{{settings.max_zones}}" />
+                        <small>Ensure that your water supply and solenoid power supply can handle the specified number of zones</small>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label for="max_zones">
+                        Email
+                    </label>
+                    <div class="options">
+                        <input type="text" id="email" name="email" value="{{settings.email}}" />
+                        <small>Address for notifications</small>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label>
+                        Email daily logs
+                    </label>
+                    <div class="options">
+                        <input type="radio" name="email_logs" value="1" {% if settings.email_logs is equalto "1" %} checked="checked" {% endif %} /> Yes
+                        <br /><input type="radio" name="email_logs" value="0" {% if settings.email_logs is equalto "0" %} checked="checked" {% endif %} /> No
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label>
+                        No Flow Warning
+                    </label>
+                    <div class="options">
+                        <input type="radio" name="flow_warning" value="1" {% if settings.flow_warning is equalto "1" %} checked="checked" {% endif %} /> Yes
+                        <br /><input type="radio" name="flow_warning" value="0" {% if settings.flow_warning is equalto "1" %} checked="checked" {% endif %} /> No
+                        <small>Trigger a warning if a zone is on but the flow rate is zero</small>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label>
+                        System off Flow Warning
+                    </label>
+                    <div class="options">
+                        <input type="radio" name="off_flow_warning" value="1" {% if settings.off_flow_warning is equalto "1" %} checked="checked" {% endif %} /> Yes
+                        <br /><input type="radio" name="off_flow_warning" value="0" {% if settings.off_flow_warning is equalto "0" %} checked="checked" {% endif %} /> No
+                        <small>Trigger a warning if there is water flowing with all zones turned off</small>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label>
+                        Chance of rain
+                    </label>
+                    <div class="options">
+                        <input type="radio" name="chance_of_rain_stop" value="1" {% if settings.chance_of_rain_stop is equalto "1" %} checked="checked" {% endif %} /> Yes
+                        <br /><input type="radio" name="chance_of_rain_stop" value="0" {% if settings.chance_of_rain_stop is equalto "0" %} checked="checked" {% endif %} /> No
+                        <small>Don't run programs if the chance of rain is over the specified %</small>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label>
+                        Actual rain
+                    </label>
+                    <div class="options">
+                        <input type="radio" name="actual_rain_stop" value="1" {% if settings.actual_rain_stop is equalto "1" %} checked="checked" {% endif %}  /> Yes
+                        <br /><input type="radio" name="actual_rain_stop" value="0" {% if settings.actual_rain_stop is equalto "1" %} checked="checked" {% endif %} /> No
+                        <small>Don't run programs if the rainfall amount is over the specified amount</small>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label>
+                        Extend programs
+                    </label>
+                    <div class="options">
+                        If the forecast maximum is over <input type="number" name="extend_program_temp" value="{{settings.extend_program_temp}}" />&deg;c
+                        <br />extend programs by <input type="number" name="extend_program_minutes" value="{{settings.extend_program_minutes}}" /> minutes.
+                    </div>
+                </div>
+
+
+            </fieldset>
+
+            <hr />
+
+            <fieldset>
+                <legend>GPIO Pins</legend>
+
+                <div class="form-section">
+                    <label>
+                        Mode
+                    </label>
+                    <div class="options">
+                        <input type="radio" name="board_mode" value="board" {% if settings.board_mode is equalto "board" %} checked="checked" {% endif %} /> Board
+                        <br /><input type="radio" name="board_mode" value="bcm" {% if settings.board_mode is equalto "bcm" %} checked="checked" {% endif %} /> BCM
+                    </div>
+                </div>
+
+                <table class="datatable">
+                    <tr>
+                        <th>Device</th>
+                        <th>GPIO Pin</th>
+                    </tr>
+                    <tr>
+                        <td>Flow Sensor</td>
+                        <td>
+                            <select id="gpio_flow_sensor" name="gpio_flow_sensor">
+                                {% for n in range(0,41) %}
+                                    <option value="{{n}}" {% if settings.gpio_flow_sensor is equalto n|string %} selected="selected" {% endif %}>{{n}}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Soil Moisture Sensor</td>
+                        <td>
+                            <select id="gpio_soil_sensor" name="gpio_soil_sensor">
+                                {% for n in range(0,41) %}
+                                    <option value="{{n}}" {% if settings.gpio_soil_sensor is equalto n|string %} selected="selected" {% endif %}>{{n}}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+
+                <hr />
+
+           </fieldset>
+
+            <fieldset>
+                <legend>Weather</legend>
+
+                <div class="form-section">
+                    <label for="weather_api_key">
+                        API Key
+                    </label>
+                    <div class="options">
+                        <input type="text" id="weather_api_key" name="weather_api_key" value="{{settings.weather_api_key}}" />
+                        <small>API Key from <a href="http://www.wunderground.com/weather/api/">Weather Underground</a></small>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label for="weather_country">
+                        Country
+                    </label>
+                    <div class="options">
+                        <input type="text" id="weather_country" name="weather_country" value="{{settings.weather_country}}" />
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label for="weather_city">
+                        City
+                    </label>
+                    <div class="options">
+                        <input type="text" id="weather_city" name="weather_city" value="{{settings.weather_city}}" />
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label for="weather_poll_freq">
+                        Poll Frequency
+                    </label>
+                    <div class="options">
+                        <input type="number" id="weather_poll_freq" name="weather_poll_freq" value="{{settings.weather_poll_freq}}" />
+                        <small>(minutes)</small>
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <hr />
+
+            <fieldset>
+                <legend>Flow Sensor</legend>
+
+                <div class="form-section">
+                    <label for="flow_sensor_ticks">
+                        Ticks
+                    </label>
+                    <div class="options">
+                        <input type="text" id="flow_sensor_ticks" name="flow_sensor_ticks" value="{{settings.flow_sensor_ticks}}" />
+                        <input type="button" class="btn" value="Calibrate" onclick="window.location='/calibrate';" />
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label>
+                        Measured Water Volume
+                    </label>
+                    <div class="options">
+                        <input type="text" name="flow_sensor_measured" value="{{settings.flow_sensor_measured}}" /> {{settings.unit|upper}}
+                    </div>
+                </div>
+
+                <p>
+                    <ol>
+                        <li>Click Calibrate. The software will wait for the sensor to send data before counting the number of ticks over 60 seconds</li>
+                        <li>Place a bucket under your tap where the flow sensor is located</li>
+                        <li>Turn on the tap and start a stopwatch at the same time</li>
+                        <li>Turn off the stopwatch when the time hits 60 seconds</li>
+                        <li>Measure the volume of water by Litres or Gallons depending on your selected unit</li>
+                        <li>Refresh this page. The 'ticks' box should now contain a value</li>
+                        <li>Lastly, enter in your measured water volume from your previous calculation</li>
+                    </ol>
+                </p>
+
+            </fieldset>
+
+            <div class="center">
+                <input class="btn center mainbtn" type="submit" name="save" value="Save"/>
+                <br /><small>Please restart your system after updating settings</small>
+            </div>
+
+        </form>
+
+{% include 'footer.html' %}

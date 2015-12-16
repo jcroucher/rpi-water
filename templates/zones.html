@@ -1,0 +1,63 @@
+{% include 'header.html' %}
+
+        <h1>
+            <span class="step">
+                <i class="icon ion-android-locate"></i>
+            </span>
+            Zones
+        </h1>
+
+        <div style="clear: both; float: right;">
+            <input class="btn icon ion-flash-off" type="button" value="&#xf136; Turn Off All Zones" onclick="window.location='/editzone?zone=0';"/>
+            <input class="btn icon ion-android-add" type="button" value="&#xf2c7; Add Zone" onclick="window.location='/editzone?zone=0';"/>
+        </div>
+
+        <table class="datatable">
+            <tr><th>#</th><th>Type</th><th>Name</th><th>Last Run</th><th>Running</th><th>State</th><th>Manual</th><th></th></tr>
+            {% for id, name, last_run, running, button_running, button_active, zone_type in rows %}
+                <tr>
+                    <td class="center">{{id}}.</td>
+                    <td class="center">
+                        <span class="step">
+                            {% if zone_type == 1 %}
+                                <i class="icon ion-ios7-lightbulb"></i>
+                            {% else %}
+                                <i class="icon ion-waterdrop"></i>
+                            {% endif %}
+                        </span>
+                    </td>
+                    <td>{{name}}</td>
+                    <td class="center">{{last_run}}</td>
+                    <td class="center">
+                        {%if running is equalto "On" %}
+                            <span class="step">
+                            <i class="icon ion-android-checkmark"></i>
+                            </span>
+                        {% else %}
+                            <span class="step">
+                            <i class="icon ion-android-close"></i>
+                            </span>
+                        {% endif %}
+                    </td>
+                    <td class="center">
+                        <input class="btn" type="button" value="{{button_active | capitalize}}" onclick="window.location='/?mode={{button_active}}&zone={{id}}';"/>
+                    </td>
+                    <td class="center">
+                        <input class="btn" type="button" value="Turn {{button_running}}" onclick="window.location='/?mode={{button_running|lower}}&zone={{id}}';"/>
+                    </td>
+
+                    <td class="center">
+                        <input class="btn icon ion-edit" type="button" value="&#xf2bf;" onclick="window.location='/editzone?zone={{id}}';"/>
+                    </td>
+
+                </tr>
+            {% endfor %}
+        </table>
+
+        <dl>
+            <dt>State</dt><dd>If the zone is disabled or not. If a zone is disabled, programs will not run. Manual mode can still be used.</dd>
+            <dt>Manual</dt><dd>Manually turn on the zone. The zone will stay on until manually turned off.</dl>
+        </dl>
+
+
+{% include 'footer.html' %}
