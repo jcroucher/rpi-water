@@ -214,7 +214,7 @@ class ZoneProgramRunner:
             else:
                 sql = """update zones set active = 0 where zone_id = ?"""
 
-            self.db.query(sql, (int(zone_id)))
+            self.db.query(sql, (int(zone_id),))
 
         # Logs so we can see a history of the zones
         def log_zone(self,zone_id,log):
